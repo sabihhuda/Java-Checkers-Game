@@ -98,8 +98,8 @@ Test your changes thoroughly.
 Submit a pull request with a clear description of enhancements.
 
 License
-Distributed under the MIT License. See LICENSE (to be added) for details.
+Distributed under the MIT License.
 
 Enjoy the game! 🏁
-Developed by [Your Name]
+Developed by Mohammad Sabih Ul Huda
 For questions or feedback, open an issue in the repository.
