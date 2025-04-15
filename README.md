@@ -1,4 +1,3 @@
-```markdown
 # Checkers Game - Java Console Implementation
 
 A Java-based Checkers game featuring turn-based gameplay, move validation, and king promotions. Designed for console interaction, this project demonstrates core object-oriented programming principles and game logic implementation.
@@ -15,7 +14,7 @@ A Java-based Checkers game featuring turn-based gameplay, move validation, and k
 1. **Prerequisites**: Java JDK 18+ installed.
 2. **Clone the repository**:
    ```bash
-   git clone [your-repository-url]
+   git clone https://github.com/sabihhuda/Java-Checkers-Game.git
    cd checkers-game
    ```
 3. **Compile and execute**:
