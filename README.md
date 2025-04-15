@@ -1,105 +1,103 @@
-# Checkers Game - Java Implementation
+```markdown
+# Checkers Game - Java Console Implementation
 
-A console-based Checkers game implemented in Java, allowing two players to take turns making moves. The game validates moves, handles piece jumps, and promotes pieces to kings upon reaching the opposite end of the board.
+A Java-based Checkers game featuring turn-based gameplay, move validation, and king promotions. Designed for console interaction, this project demonstrates core object-oriented programming principles and game logic implementation.
 
 ## Features
-- **Turn-based gameplay**: Alternate between Black (`b`) and White (`w`) pieces.
-- **Move validation**: Ensures moves follow Checkers rules (diagonal movement, mandatory jumps).
-- **Jump mechanics**: Supports capturing opponent pieces using `x` (e.g., `5x9`).
-- **King promotion**: Promotes pieces to kings (`B` or `W`) when reaching the opponent's end row.
-- **Visual board**: Prints the updated board state after each move.
-- **Input validation**: Prevents invalid moves and prompts for retries.
-- **Cross-platform**: Runs on any system with Java 18+.
+- **Interactive Board**: Visual ASCII representation of the 8x8 checkerboard.
+- **Move Validation**: Ensures compliance with standard Checkers rules.
+- **Jump Mechanics**: Supports piece capture using `x` notation (e.g., `5x9`).
+- **King Promotion**: Converts pieces to kings (`B`/`W`) upon reaching the opponent's end row.
+- **Turn Management**: Alternates between Black (`b`) and White (`w`) players.
+- **Input Sanitization**: Handles invalid moves gracefully with error messages.
 
-## Getting Started
-### Prerequisites
-- Java JDK 18 or later
-- Terminal or IDE (IntelliJ recommended)
-
-### Installation
-1. **Clone the repository**:
+## How to Run
+1. **Prerequisites**: Java JDK 18+ installed.
+2. **Clone the repository**:
    ```bash
-   git clone https://github.com/sabihhuda/Java-Checkers-Game.git
+   git clone [your-repository-url]
    cd checkers-game
-Compile and run (via terminal):
+   ```
+3. **Compile and execute**:
+   ```bash
+   javac project.java
+   java project
+   ```
 
-bash
-Copy
-javac project.java
-java project
-For IntelliJ users: Import the project using the finalproject.iml file.
+## Project Structure
+- **Main Class (`project.java`)**: Manages game flow, input handling, and board updates.
+- **Validation System**: 
+  - `validate()`: Checks move legality.
+  - `crossboardValidate()`: Verifies jump moves against predefined paths.
+- **Board Engine**:
+  - `printCheckerBoard()`: Renders the game state.
+  - `coinMove()`: Handles piece movement and promotions.
+- **Data Structures**: 
+  - `CheckerBoard` array tracks piece positions.
+  - `CrossBoard` defines valid jump paths.
 
-Game Rules
-Starting Player: Choose Black/B or White/W when prompted.
+## Sample Code Snippets
+1. **Board Rendering**
+```java
+public static void printCheckerBoard(char[] pBoard, char[] cBoard) {
+    String ptmpString = "-";
+    for (int i = 0; i < 32; i++) {
+        if (i == 3 || i == 11 || i == 19 || i == 27) {
+            ptmpString += pBoard[i];
+        } // ... additional formatting logic
+    }
+    System.out.println("\t\t" + ptmpString.substring(0, 8));
+}
+```
 
-Move Input:
+2. **Move Execution**
+```java
+public static void coinMove(String moves, char[] CheckerBoard, boolean isJump, int jumpNumber) {
+    int x = moves.indexOf("-");
+    int left = Integer.parseInt(moves.substring(0, x)) - 1;
+    int right = Integer.parseInt(moves.substring(x+1)) - 1;
+    CheckerBoard[right] = CheckerBoard[left]; // Move piece
+    if (right >= 28) CheckerBoard[right] = 'B'; // King promotion
+}
+```
 
-Normal move: Enter positions as start-end (e.g., 9-13).
+3. **Jump Validation**
+```java
+public static int crossboardValidate(boolean isJump, String moves, String[][] CrossBoard, char[] CheckerBoard) {
+    for (String[] strings : CrossBoard) {
+        String cb = strings[0];
+        if (cb.contains(left + ",") && cb.contains("," + right)) {
+            return 1; // Valid jump path
+        }
+    }
+    return 0;
+}
+```
 
-Jump move: Use x to capture (e.g., 5x9 for a single jump).
+## Game Flow
+1. **Initialization**: Loads starting positions (12 black/white pieces each).
+2. **Turn Sequence**:
+   - Player chooses starting color.
+   - Enters moves in `start-end` or `startxend` format.
+3. **State Update**:
+   - Validates moves against checkerboard rules.
+   - Updates piece positions and promotions.
+   - Re-renders board after each move.
+4. **Termination**: Exits after specified number of moves.
 
-Valid Moves:
+## Reflection
+This project deepened my understanding of array manipulation and input validation in Java. Key challenges included implementing jump move logic and debugging board rendering edge cases. While the core gameplay works, the jump validation system (`CrossBoard`) could benefit from dynamic path calculation instead of hardcoded values.
 
-Regular pieces move diagonally forward.
+## Future Improvements
+- **GUI Integration**: Replace console output with graphical interface.
+- **AI Opponent**: Implement minimax algorithm for single-player mode.
+- **Enhanced Validation**: Support multi-jump sequences.
+- **Save/Load System**: Persist game states between sessions.
+- **Network Play**: Add multiplayer via sockets.
 
-Kings (B/W) can move diagonally backward and forward.
+## License
+This project is open-source under the MIT License.
 
-Jumps are mandatory if possible. Consecutive jumps in one turn are allowed.
-
-Winning: Capture all opponent pieces or block their moves.
-
-Example Gameplay
-Copy
-Black or White to start
-Black
-Enter how many moves to make
-2
-Enter the moves to make
-9-13
-
-[Board Display]
-        b-b-b-b--b-b-b-b       .-.-.-.--.-.-.-.
-        .-b-b-b--b-b-b-.       .-.-.-.--.-.-.-.
-        .-.-.-.--.-.-.-.       .-.-.-.--.-.-.-.
-        w-w-w-w--w-w-w-w       .-.-.-.--.-.-.-.
-
-5x9
-
-[Board After Jump]
-        b-b-b-b--b-b-b-b       .-.-.-.--.-.-.-.
-        .-.-.-.--b-b-b-.       .-.-.-.--.-.-.-.
-        .-.-w-.--.-.-.-.       .-.-.-.--.-.-.-.
-        w-w-w-w--w-w-w-w       .-.-.-.--.-.-.-.
-Project Structure
-project.java: Core game logic and console interface.
-
-Configuration Files:
-
-finalproject.iml: IntelliJ module configuration.
-
-*.xml: IDE settings for inspections, UI, and project structure.
-
-.gitignore: Excludes IDE-specific files and build outputs.
-
-Troubleshooting
-Invalid Move: The game will prompt you to retry.
-
-Java Version Issues: Ensure JDK 18 is installed and set as the project SDK in IntelliJ.
-
-Board Display Glitches: Resize your terminal window if alignment breaks.
-
-Contributing
-Fork the repository.
-
-Create a feature branch (git checkout -b feature/improvement).
-
-Test your changes thoroughly.
-
-Submit a pull request with a clear description of enhancements.
-
-License
-Distributed under the MIT License.
-
-Enjoy the game! 🏁
-Developed by Mohammad Sabih Ul Huda
-For questions or feedback, open an issue in the repository.
+## Contact
+For questions or contributions:  
+sabihhuda3@gmail.com  
