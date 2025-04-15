@@ -19,7 +19,7 @@ A console-based Checkers game implemented in Java, allowing two players to take 
 ### Installation
 1. **Clone the repository**:
    ```bash
-   git clone [your-repository-url]
+   git clone https://github.com/sabihhuda/Java-Checkers-Game.git
    cd checkers-game
 Compile and run (via terminal):
 
